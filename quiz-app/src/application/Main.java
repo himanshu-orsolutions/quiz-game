@@ -1,6 +1,7 @@
 package application;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -9,10 +10,13 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("QuizApp.fxml"));
+			BorderPane root = (BorderPane) loader.load();
 			Scene scene = new Scene(root, 650, 440);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Quiz App");
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
