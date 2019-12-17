@@ -2,9 +2,13 @@ package com.quiz.models;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * The model Question. It holds information of a question.
  */
+@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Question {
 
 	private String question;
