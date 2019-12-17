@@ -78,10 +78,8 @@ public class Server {
 	private String prepareFinalResult(Integer correct, Integer wrong) {
 
 		StringBuilder resultBuilder = new StringBuilder();
-		resultBuilder.append("Right answers: " + correct);
-		resultBuilder.append("\n");
-		resultBuilder.append("Wrong answers: " + wrong);
-		resultBuilder.append("\n");
+		resultBuilder.append("Right answer(s): " + correct + ", ");
+		resultBuilder.append("Wrong answer(s): " + wrong + ", ");
 		resultBuilder.append("Total percentage: " + (correct / (double) totalQuestions) * 100.0);
 
 		return resultBuilder.toString();
@@ -147,7 +145,14 @@ public class Server {
 					outputWriter.flush();
 				}
 			} catch (IOException ioException) {
-				// TODO: Log it
+				// TODO: log it
+			} finally {
+				try {
+					inputReader.close();
+					outputWriter.close();
+				} catch (IOException ioException) {
+					// TODO: log it
+				}
 			}
 		});
 	}
@@ -158,12 +163,14 @@ public class Server {
 	private void acceptConnections() {
 
 		while (true) {
-			try (Socket quizSocket = this.serverSocket.accept();
-					BufferedReader inputReader = new BufferedReader(new InputStreamReader(quizSocket.getInputStream()));
-					BufferedWriter outputWriter = new BufferedWriter(
-							new OutputStreamWriter(quizSocket.getOutputStream()))) {
+			try {
+				Socket quizSocket = this.serverSocket.accept();
+				BufferedReader inputReader = new BufferedReader(new InputStreamReader(quizSocket.getInputStream()));
+				BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(quizSocket.getOutputStream()));
 
+				System.out.println("Connected to " + quizSocket.getInetAddress().getHostAddress());
 				startQuiz(inputReader, outputWriter);
+
 			} catch (IOException ioException) {
 				// TODO: log it
 			}
@@ -190,4 +197,12 @@ public class Server {
 		}
 	}
 
+	/**
+	 * The execution starts from here
+	 * 
+	 * @param args The command line arguments
+	 */
+	public static void main(String[] args) {
+		new Server();
+	}
 }
