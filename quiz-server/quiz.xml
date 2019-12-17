@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <questions>
+      <element>
+         <answer>1</answer>
+         <options>
+            <element>option1</element>
+            <element>option2</element>
+            <element>option3</element>
+            <element>option4</element>
+         </options>
+         <question>Which option is correct?</question>
+      </element>
+   </questions>
+</root>
