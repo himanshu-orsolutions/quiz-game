@@ -60,11 +60,25 @@ public class QuizAppController {
 	 */
 	private Integer totalQuestions = 0;
 
+	private String prepareResultRequest() {
+
+		StringBuilder resultRequestBuilder = new StringBuilder();
+		questions.forEach(question -> {
+			resultRequestBuilder.append(question.getId());
+			resultRequestBuilder.append(":");
+			resultRequestBuilder.append(question.getAnswer());
+			resultRequestBuilder.append(",");
+		});
+
+		return resultRequestBuilder.toString();
+	}
+
 	private void setQuestion(Integer currentIndex) {
 
 		questionArea.setText(questions.get(currentIndex).getQuestion());
 		List<String> options = questions.get(currentIndex).getOptions();
 		optionA.setText(options.get(0));
+		optionA.setSelected(true);
 		optionB.setText(options.get(1));
 		optionC.setText(options.get(2));
 		optionD.setText(options.get(3));
@@ -95,7 +109,15 @@ public class QuizAppController {
 				totalQuestions = questions.size();
 				setQuestion(currentIndex);
 			} else {
-				new Alert(AlertType.INFORMATION, message, ButtonType.CLOSE).show();
+				String[] splitted = message.split(",");
+				StringBuilder resultBuilder = new StringBuilder();
+				resultBuilder.append(splitted[0]);
+				resultBuilder.append("\n");
+				resultBuilder.append(splitted[1]);
+				resultBuilder.append("\n");
+				resultBuilder.append(splitted[2]);
+				resultBuilder.append("\n");
+				new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE).show();
 			}
 		});
 	});
@@ -131,10 +153,11 @@ public class QuizAppController {
 	@FXML
 	private void submit(ActionEvent event) {
 
-		questions.get(currentIndex).setAnswer(optionsGroup.getSelectedToggle().toString());
+		questions.get(currentIndex).setAnswer(((RadioButton) optionsGroup.getSelectedToggle()).getText());
 
 		if (currentIndex == (totalQuestions - 1)) {
-
+			String resultRequest = prepareResultRequest();
+			quizManager.sendMessage(resultRequest);
 		}
 	}
 }

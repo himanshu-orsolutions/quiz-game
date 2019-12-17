@@ -7,7 +7,7 @@
 		<options>Singapore</options>
 		<options>Sri Lanka</options>
 		<options>Bangladesh</options>
-		<answer>A</answer>
+		<answer>Maldives</answer>
 	</questions>
 	<questions>
 		<question>Which of the following country conducted a test which was aimed to help the country to boost its reliable strategic nuclear deterrent at Sohae Satellite Launching site?</question>
@@ -16,7 +16,7 @@
 		<options>North Korea</options>
 		<options>Israel</options>
 		<options>Russia</options>
-		<answer>B</answer>
+		<answer>North Korea</answer>
 	</questions>
 	<questions>
 		<question>Who recently won the Presidential election in Algeria?</question>
@@ -25,7 +25,7 @@
 		<options>Noureddine Bedoui</options>
 		<options>Said Bouteflika</options>
 		<options>Abdelmadjid Tebboune</options>
-		<answer>D</answer>
+		<answer>Abdelmadjid Tebboune</answer>
 	</questions>
 	<questions>
 		<question>Which country has been left out of European Union's 2050 climate neutrality agreement?</question>
@@ -34,7 +34,7 @@
 		<options>Croatia</options>
 		<options>Czech Republic</options>
 		<options>Poland</options>
-		<answer>D</answer>
+		<answer>Poland</answer>
 	</questions>
 	<questions>
 		<question>Who is the foreign minister of Indonesia?</question>
@@ -43,6 +43,6 @@
 		<options>YasonnaLaoly</options>
 		<options>Tito Karnavian</options>
 		<options>Retno L P Marsudi</options>
-		<answer>D</answer>
+		<answer>Retno L P Marsudi</answer>
 	</questions>
 </root>

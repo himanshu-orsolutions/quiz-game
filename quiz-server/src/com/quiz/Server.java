@@ -143,6 +143,7 @@ public class Server {
 					String result = calculateResult(resultRequest);
 					outputWriter.write(result + "\n");
 					outputWriter.flush();
+					resultRequest = inputReader.readLine();
 				}
 			} catch (IOException ioException) {
 				// TODO: log it
