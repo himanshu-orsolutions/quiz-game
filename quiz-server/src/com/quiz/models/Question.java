@@ -14,7 +14,7 @@ public class Question {
 	private String id;
 	private String question;
 	private List<String> options;
-	private Integer answer;
+	private String answer;
 
 	public String getId() {
 		return id;
@@ -40,11 +40,11 @@ public class Question {
 		this.options = options;
 	}
 
-	public Integer getAnswer() {
+	public String getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(Integer answer) {
+	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
 }

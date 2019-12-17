@@ -36,7 +36,12 @@ public class Server {
 	/**
 	 * The quiz metadata
 	 */
-	private HashMap<String, Integer> metadata = new HashMap<>();
+	private HashMap<String, String> metadata = new HashMap<>();
+
+	/**
+	 * The total number of questions
+	 */
+	private Integer totalQuestions = 0;
 
 	/**
 	 * The task executor. It handle the exams.
@@ -54,15 +59,80 @@ public class Server {
 		questions.forEach(question -> {
 			if (!metadata.containsKey(question.getId())) {
 				metadata.put(question.getId(), question.getAnswer());
+			} else {
+				// TODO: log it
 			}
 			question.setAnswer(null);
 		});
+
+		totalQuestions = metadata.size(); // Setting the total questions
+	}
+
+	/**
+	 * Prepares the final result
+	 * 
+	 * @param correct The correct answers count
+	 * @param wrong   The wrong answers count
+	 * @return The final result
+	 */
+	private String prepareFinalResult(Integer correct, Integer wrong) {
+
+		StringBuilder resultBuilder = new StringBuilder();
+		resultBuilder.append("Right answers: " + correct);
+		resultBuilder.append("\n");
+		resultBuilder.append("Wrong answers: " + wrong);
+		resultBuilder.append("\n");
+		resultBuilder.append("Total percentage: " + (correct / (double) totalQuestions) * 100.0);
+
+		return resultBuilder.toString();
+	}
+
+	/**
+	 * Calculates result from the result request
+	 * 
+	 * @param resultRequest The result request. Its in the form of question ID
+	 *                      1:Answer, question ID 2:Answer, ..., question ID
+	 *                      N:Answer,
+	 * @return The calculated result
+	 */
+	private String calculateResult(String resultRequest) {
+
+		String[] splitted = resultRequest.split(",");
+		Integer correct = 0;
+		Integer wrong = 0;
+
+		if (splitted.length == totalQuestions) {
+			for (String info : splitted) {
+				String[] idAndAnswer = info.split(":");
+
+				if (idAndAnswer.length == 2) {
+					String id = idAndAnswer[0].trim();
+					String answer = idAndAnswer[1].trim();
+					if (metadata.containsKey(id)) {
+						if (metadata.get(id).equals(answer)) {
+							correct++;
+						} else {
+							wrong++;
+						}
+					} else {
+						// TODO: log it
+					}
+				} else {
+					// TODO: log it
+				}
+			}
+		} else {
+			// TODO: log it
+		}
+
+		// Preparing the final result
+		return prepareFinalResult(correct, wrong);
 	}
 
 	/**
 	 * Starts the exam
 	 */
-	private void startExam(BufferedReader inputReader, BufferedWriter outputWriter) {
+	private void startQuiz(BufferedReader inputReader, BufferedWriter outputWriter) {
 
 		// Sending the question paper
 		taskExecutor.execute(() -> {
@@ -70,9 +140,11 @@ public class Server {
 				outputWriter.write(quizContent + "\n");
 				outputWriter.flush();
 
-				String input = inputReader.readLine();
-				while (input != null) {
-					// Map it to the model and calculate result and send it again
+				String resultRequest = inputReader.readLine();
+				while (resultRequest != null) {
+					String result = calculateResult(resultRequest);
+					outputWriter.write(result + "\n");
+					outputWriter.flush();
 				}
 			} catch (IOException ioException) {
 				// TODO: Log it
@@ -91,7 +163,7 @@ public class Server {
 					BufferedWriter outputWriter = new BufferedWriter(
 							new OutputStreamWriter(quizSocket.getOutputStream()))) {
 
-				startExam(inputReader, outputWriter);
+				startQuiz(inputReader, outputWriter);
 			} catch (IOException ioException) {
 				// TODO: log it
 			}
