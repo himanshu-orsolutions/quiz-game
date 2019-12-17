@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	/**
+	 * Starts the application
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -24,6 +27,11 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * Execution starts from here
+	 * 
+	 * @param args The command line arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

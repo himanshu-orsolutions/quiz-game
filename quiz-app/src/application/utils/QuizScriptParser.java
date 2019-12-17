@@ -23,7 +23,8 @@ public class QuizScriptParser {
 		try {
 			unmarshaller = JAXBContext.newInstance(Quiz.class).createUnmarshaller();
 		} catch (JAXBException jaxbException) {
-			// TODO: log it
+			System.out.println(
+					"Error: The unmarsheller creation failed. Exception: " + jaxbException.getLocalizedMessage());
 		}
 	}
 
@@ -42,7 +43,8 @@ public class QuizScriptParser {
 		try {
 			return (Quiz) unmarshaller.unmarshal(new ByteArrayInputStream(content.getBytes()));
 		} catch (JAXBException jaxbException) {
-			// TODO: log it
+			System.out.println(
+					"Error: Deserialization of XML content failed. Exception: " + jaxbException.getLocalizedMessage());
 		}
 		return null;
 	}

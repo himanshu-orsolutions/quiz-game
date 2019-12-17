@@ -60,6 +60,11 @@ public class QuizAppController {
 	 */
 	private Integer totalQuestions = 0;
 
+	/**
+	 * Prepares the result request to be sent to quiz server
+	 * 
+	 * @return The result request
+	 */
 	private String prepareResultRequest() {
 
 		StringBuilder resultRequestBuilder = new StringBuilder();
@@ -73,10 +78,16 @@ public class QuizAppController {
 		return resultRequestBuilder.toString();
 	}
 
+	/**
+	 * Sets the question on UI
+	 * 
+	 * @param currentIndex The index of current question
+	 */
 	private void setQuestion(Integer currentIndex) {
 
 		Question question = questions.get(currentIndex);
 
+		// Setting the question
 		questionArea.setText(question.getQuestion());
 		List<String> options = question.getOptions();
 		optionA.setText(options.get(0));
@@ -84,6 +95,8 @@ public class QuizAppController {
 		optionC.setText(options.get(2));
 		optionD.setText(options.get(3));
 
+		// Checking if an answer is already submitted, if yes, the previously submitted
+		// answer will be shown
 		if (question.getAnswer() != null) {
 			if (options.get(0).equals(question.getAnswer())) {
 				optionA.setSelected(true);
@@ -97,6 +110,8 @@ public class QuizAppController {
 		} else {
 			optionA.setSelected(true);
 		}
+
+		// Button toggle operations
 		if (currentIndex == 0 || currentIndex == (totalQuestions - 1)) {
 			if (currentIndex == 0) {
 				previousButton.setDisable(true);
@@ -119,12 +134,12 @@ public class QuizAppController {
 	private QuizManager quizManager = new QuizManager("localhost", 9090, message -> {
 
 		Platform.runLater(() -> {
-			if (message.startsWith("<?xml")) {
+			if (message.startsWith("<?xml")) { // The first input from server i.e. the quiz questions
 				Quiz quiz = QuizScriptParser.parse(message);
 				questions = quiz.getQuestions();
 				totalQuestions = questions.size();
 				setQuestion(currentIndex);
-			} else {
+			} else { // The result from server
 				String[] splitted = message.split(",");
 				StringBuilder resultBuilder = new StringBuilder();
 				resultBuilder.append(splitted[0].trim());
@@ -133,7 +148,8 @@ public class QuizAppController {
 				resultBuilder.append("\n");
 				resultBuilder.append(splitted[2].trim());
 				resultBuilder.append("\n");
-				new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE).show();
+				new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE).show(); // Showing result
+																										// on UI
 			}
 		});
 	});
@@ -166,6 +182,11 @@ public class QuizAppController {
 		}
 	}
 
+	/**
+	 * Submits the answer
+	 * 
+	 * @param event The event
+	 */
 	@FXML
 	private void submit(ActionEvent event) {
 
