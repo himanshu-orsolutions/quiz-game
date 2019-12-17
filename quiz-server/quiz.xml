@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <root>
-    <questions>
-        <question>Hey is it a question?</question>
-        <id>1</id>
-        <options>option1</options>
-        <options>option2</options>
-        <options>option3</options>
-        <options>option4</options>
-        <answer>1</answer>
-    </questions>
+	<questions>
+		<question>India and which of the following agreed to expand their maritime security and boost their anti-terror cooperation in order to deal with the common challenges in Indian Ocean Region?</question>
+		<id>#1</id>
+		<options>Maldives</options>
+		<options>Singapore</options>
+		<options>Sri Lanka</options>
+		<options>Bangladesh</options>
+		<answer>A</answer>
+	</questions>
+	<questions>
+		<question>Which of the following country conducted a test which was aimed to help the country to boost its reliable strategic nuclear deterrent at Sohae Satellite Launching site?</question>
+		<id>#2</id>
+		<options>South Korea</options>
+		<options>North Korea</options>
+		<options>Israel</options>
+		<options>Russia</options>
+		<answer>B</answer>
+	</questions>
+	<questions>
+		<question>Who recently won the Presidential election in Algeria?</question>
+		<id>#3</id>
+		<options>Abdelkader Bensalah</options>
+		<options>Noureddine Bedoui</options>
+		<options>Said Bouteflika</options>
+		<options>Abdelmadjid Tebboune</options>
+		<answer>D</answer>
+	</questions>
+	<questions>
+		<question>Which country has been left out of European Union's 2050 climate neutrality agreement?</question>
+		<id>#4</id>
+		<options>Belgium</options>
+		<options>Croatia</options>
+		<options>Czech Republic</options>
+		<options>Poland</options>
+		<answer>D</answer>
+	</questions>
+	<questions>
+		<question>Who is the foreign minister of Indonesia?</question>
+		<id>#5</id>
+		<options>ArifinTasrif</options>
+		<options>YasonnaLaoly</options>
+		<options>Tito Karnavian</options>
+		<options>Retno L P Marsudi</options>
+		<answer>D</answer>
+	</questions>
 </root>
