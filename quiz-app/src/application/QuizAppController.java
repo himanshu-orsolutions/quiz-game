@@ -75,17 +75,32 @@ public class QuizAppController {
 
 	private void setQuestion(Integer currentIndex) {
 
-		questionArea.setText(questions.get(currentIndex).getQuestion());
-		List<String> options = questions.get(currentIndex).getOptions();
+		Question question = questions.get(currentIndex);
+
+		questionArea.setText(question.getQuestion());
+		List<String> options = question.getOptions();
 		optionA.setText(options.get(0));
-		optionA.setSelected(true);
 		optionB.setText(options.get(1));
 		optionC.setText(options.get(2));
 		optionD.setText(options.get(3));
 
+		if (question.getAnswer() != null) {
+			if (options.get(0).equals(question.getAnswer())) {
+				optionA.setSelected(true);
+			} else if (options.get(1).equals(question.getAnswer())) {
+				optionB.setSelected(true);
+			} else if (options.get(2).equals(question.getAnswer())) {
+				optionC.setSelected(true);
+			} else {
+				optionD.setSelected(true);
+			}
+		} else {
+			optionA.setSelected(true);
+		}
 		if (currentIndex == 0 || currentIndex == (totalQuestions - 1)) {
 			if (currentIndex == 0) {
 				previousButton.setDisable(true);
+				submitButton.setText("Submit");
 			}
 			if (currentIndex == (totalQuestions - 1)) {
 				nextButton.setDisable(true);
@@ -94,6 +109,7 @@ public class QuizAppController {
 		} else {
 			previousButton.setDisable(false);
 			nextButton.setDisable(false);
+			submitButton.setText("Submit");
 		}
 	}
 
@@ -111,11 +127,11 @@ public class QuizAppController {
 			} else {
 				String[] splitted = message.split(",");
 				StringBuilder resultBuilder = new StringBuilder();
-				resultBuilder.append(splitted[0]);
+				resultBuilder.append(splitted[0].trim());
 				resultBuilder.append("\n");
-				resultBuilder.append(splitted[1]);
+				resultBuilder.append(splitted[1].trim());
 				resultBuilder.append("\n");
-				resultBuilder.append(splitted[2]);
+				resultBuilder.append(splitted[2].trim());
 				resultBuilder.append("\n");
 				new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE).show();
 			}
