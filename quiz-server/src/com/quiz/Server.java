@@ -56,11 +56,11 @@ public class Server {
 	private void prepareQuizMetadata(Quiz quiz) {
 
 		List<Question> questions = quiz.getQuestions();
-		questions.forEach(question -> {
+		questions.forEach(question -> { // Creating map of question ID to its answer
 			if (!metadata.containsKey(question.getId())) {
 				metadata.put(question.getId(), question.getAnswer());
 			} else {
-				// TODO: log it
+				System.out.println("Error: Duplicate question ID: " + question.getId());
 			}
 			question.setAnswer(null);
 		});
@@ -88,9 +88,9 @@ public class Server {
 	/**
 	 * Calculates result from the result request
 	 * 
-	 * @param resultRequest The result request. Its in the form of question ID
-	 *                      1:Answer, question ID 2:Answer, ..., question ID
-	 *                      N:Answer,
+	 * @param resultRequest The result request. Its in the the following format:
+	 *                      {question ID 1:Answer, question ID 2:Answer, ...,
+	 *                      question ID N:Answer,}
 	 * @return The calculated result
 	 */
 	private String calculateResult(String resultRequest) {
@@ -113,14 +113,14 @@ public class Server {
 							wrong++;
 						}
 					} else {
-						// TODO: log it
+						System.out.println("Error: Invalid question ID found in result request: " + id);
 					}
 				} else {
-					// TODO: log it
+					System.out.println("Error: Invalid format of answer: " + info);
 				}
 			}
 		} else {
-			// TODO: log it
+			System.out.println("Error: Answers to all questions are not found in result request.");
 		}
 
 		// Preparing the final result
@@ -146,13 +146,14 @@ public class Server {
 					resultRequest = inputReader.readLine();
 				}
 			} catch (IOException ioException) {
-				// TODO: log it
+				System.out.println("Error: Quiz interrupted. Exception: " + ioException.getLocalizedMessage());
 			} finally {
 				try {
 					inputReader.close();
 					outputWriter.close();
 				} catch (IOException ioException) {
-					// TODO: log it
+					System.out
+							.println("Error: Streams closing failed. Exception: " + ioException.getLocalizedMessage());
 				}
 			}
 		});
@@ -169,11 +170,12 @@ public class Server {
 				BufferedReader inputReader = new BufferedReader(new InputStreamReader(quizSocket.getInputStream()));
 				BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(quizSocket.getOutputStream()));
 
-				System.out.println("Connected to " + quizSocket.getInetAddress().getHostAddress());
+				System.out.println("Connected to player: " + quizSocket.getInetAddress().getHostAddress());
+				System.out.println("Starting the quiz...");
 				startQuiz(inputReader, outputWriter);
-
 			} catch (IOException ioException) {
-				// TODO: log it
+				System.out.println(
+						"Error: Connection with player interrupted. Exception: " + ioException.getLocalizedMessage());
 			}
 		}
 	}
@@ -191,10 +193,10 @@ public class Server {
 				quizContent = QuizScriptParser.toXMLString(quiz);
 				acceptConnections();
 			} else {
-				// TODO: log it
+				System.out.println("Error: Quiz content parsing failed. Cannot proceed further!!");
 			}
 		} catch (IOException ioException) {
-			// TODO: log it
+			System.out.println("Error: Server cannot be started. Exception: " + ioException.getLocalizedMessage());
 		}
 	}
 
@@ -204,6 +206,6 @@ public class Server {
 	 * @param args The command line arguments
 	 */
 	public static void main(String[] args) {
-		new Server();
+		new Server(); // Starting the quiz server
 	}
 }

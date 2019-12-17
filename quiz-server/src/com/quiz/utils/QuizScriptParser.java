@@ -33,7 +33,8 @@ public class QuizScriptParser {
 			unmarshaller = JAXBContext.newInstance(Quiz.class).createUnmarshaller();
 			marshaller = JAXBContext.newInstance(Quiz.class).createMarshaller();
 		} catch (JAXBException jaxbException) {
-			// TODO: log it
+			System.out.println("Error: The marsheller and/or unmarsheller creation failed. Exception: "
+					+ jaxbException.getLocalizedMessage());
 		}
 	}
 
@@ -53,7 +54,8 @@ public class QuizScriptParser {
 			File xml = path.toFile();
 			return (Quiz) unmarshaller.unmarshal(xml);
 		} catch (JAXBException jaxbException) {
-			// TODO: log it
+			System.out.println(
+					"Error: Deserialization of XML content failed. Exception: " + jaxbException.getLocalizedMessage());
 		}
 		return null;
 	}
@@ -70,7 +72,7 @@ public class QuizScriptParser {
 			marshaller.marshal(quiz, outputStream);
 			return outputStream.toString();
 		} catch (JAXBException | IOException exception) {
-			// TODO: log it
+			System.out.println("Error: Serialization of POJO failed. Exception: " + exception.getLocalizedMessage());
 		}
 		return "";
 	}
