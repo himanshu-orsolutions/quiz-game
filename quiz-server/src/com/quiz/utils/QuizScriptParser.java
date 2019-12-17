@@ -1,34 +1,37 @@
 package com.quiz.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import com.quiz.models.Quiz;
 
 /**
- * The utility class QuizScriptParser. It holds implementation to parse the XML
- * quiz script and map it to associated POJOs.
+ * The utility class QuizScriptParser. It holds implementation to process quiz
+ * scripts.
  */
 public class QuizScriptParser {
-
-	/**
-	 * The JAX context
-	 */
-	private static JAXBContext jaxContext;
 
 	/**
 	 * The XML unmarshaller
 	 */
 	private static Unmarshaller unmarshaller;
 
+	/**
+	 * The XML marshaller
+	 */
+	private static Marshaller marshaller;
+
 	static {
 		try {
-			jaxContext = JAXBContext.newInstance(Quiz.class);
-			unmarshaller = jaxContext.createUnmarshaller();
+			unmarshaller = JAXBContext.newInstance(Quiz.class).createUnmarshaller();
+			marshaller = JAXBContext.newInstance(Quiz.class).createMarshaller();
 		} catch (JAXBException jaxbException) {
 			// TODO: log it
 		}
@@ -53,5 +56,22 @@ public class QuizScriptParser {
 			// TODO: log it
 		}
 		return null;
+	}
+
+	/**
+	 * Serializes the quiz object
+	 * 
+	 * @param quiz The quiz object
+	 * @return The XML content
+	 */
+	public static String toXMLString(Quiz quiz) {
+
+		try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+			marshaller.marshal(quiz, outputStream);
+			return outputStream.toString();
+		} catch (JAXBException | IOException exception) {
+			// TODO: log it
+		}
+		return "";
 	}
 }
