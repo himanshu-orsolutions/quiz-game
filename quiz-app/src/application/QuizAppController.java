@@ -88,7 +88,7 @@ public class QuizAppController {
 		Question question = questions.get(currentIndex);
 
 		// Setting the question
-		questionArea.setText(question.getQuestion());
+		questionArea.setText("#" + (currentIndex + 1) + " " + question.getQuestion());
 		List<String> options = question.getOptions();
 		optionA.setText(options.get(0));
 		optionB.setText(options.get(1));

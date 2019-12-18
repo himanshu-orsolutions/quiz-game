@@ -37,12 +37,12 @@
 		<answer>Poland</answer>
 	</questions>
 	<questions>
-		<question>Who is the foreign minister of Indonesia?</question>
+		<question>This statesman, politican, scholar, inventor, and one of early presidents of USA invented the swivel chair, the spherical sundial, the moldboard plow, and the cipher wheel.</question>
 		<id>#5</id>
-		<options>ArifinTasrif</options>
-		<options>YasonnaLaoly</options>
-		<options>Tito Karnavian</options>
-		<options>Retno L P Marsudi</options>
-		<answer>Retno L P Marsudi</answer>
+		<options>George Washington</options>
+		<options>Alexander Hamilton</options>
+		<options>Thomas Jefferson</options>
+		<options>John Adams</options>
+		<answer>Thomas Jefferson</answer>
 	</questions>
 </root>
