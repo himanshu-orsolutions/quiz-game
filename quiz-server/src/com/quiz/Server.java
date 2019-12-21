@@ -2,6 +2,7 @@ package com.quiz;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.google.gson.Gson;
+import com.quiz.models.Player;
 import com.quiz.models.Question;
 import com.quiz.models.Quiz;
 import com.quiz.utils.QuizScriptParser;
@@ -128,6 +131,25 @@ public class Server {
 	}
 
 	/**
+	 * Saves player information to file
+	 * 
+	 * @param player The player
+	 */
+	private synchronized void saveToFile(Player player) throws IOException {
+
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("result.txt", true))) {
+			writer.append("First name: " + player.getFirstName());
+			writer.append("\n");
+			writer.append("Last name: " + player.getLastName());
+			writer.append("\n");
+			writer.append("Age: " + player.getAge());
+			writer.append("\n");
+			writer.append("Result: " + player.getResult());
+			writer.append("\n");
+		}
+	}
+
+	/**
 	 * Starts the exam
 	 */
 	private void startQuiz(BufferedReader inputReader, BufferedWriter outputWriter) {
@@ -135,16 +157,33 @@ public class Server {
 		// Sending the question paper
 		taskExecutor.execute(() -> {
 			try {
+				// Greeting the player
+				outputWriter.write("Greetings: Welcome to the quiz!");
+				outputWriter.flush();
+
+				// Getting and parsing the player's information
+				String information = inputReader.readLine();
+				System.out.println(information);
+				Player player = new Gson().fromJson(information, Player.class);
+
+				// Sending the quiz content to the player
 				outputWriter.write(quizContent + "\n");
 				outputWriter.flush();
 
+				// Getting the result request
 				String resultRequest = inputReader.readLine();
-				while (resultRequest != null) {
-					String result = calculateResult(resultRequest);
-					outputWriter.write(result + "\n");
-					outputWriter.flush();
-					resultRequest = inputReader.readLine();
-				}
+				System.out.println(resultRequest);
+				
+				// Calculating the result
+				String result = calculateResult(resultRequest);
+				player.setResult(result);
+
+				// Sending the result to player
+				outputWriter.write(result + "\n");
+				outputWriter.flush();
+
+				// Saving the result into the file
+				saveToFile(player);
 			} catch (IOException ioException) {
 				System.out.println("Error: Quiz interrupted. Exception: " + ioException.getLocalizedMessage());
 			} finally {

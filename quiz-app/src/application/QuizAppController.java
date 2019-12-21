@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.List;
 
 import application.models.Question;
@@ -8,16 +9,39 @@ import application.utils.QuizScriptParser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 public class QuizAppController {
 
+	// Welcome page controllers
+	@FXML
+	Label serverGreet;
+
+	@FXML
+	TextField firstName;
+
+	@FXML
+	TextField lastName;
+
+	@FXML
+	TextField age;
+
+	@FXML
+	Button proceed;
+
+	// Quiz page controllers
 	@FXML
 	TextArea questionArea;
 
@@ -61,6 +85,11 @@ public class QuizAppController {
 	private Integer totalQuestions = 0;
 
 	/**
+	 * The quiz scene state
+	 */
+	private Boolean quizSceneLoaded = false;
+
+	/**
 	 * Prepares the result request to be sent to quiz server
 	 * 
 	 * @return The result request
@@ -76,6 +105,16 @@ public class QuizAppController {
 		});
 
 		return resultRequestBuilder.toString();
+	}
+
+	/**
+	 * Shows the error message on pop-up
+	 * 
+	 * @param errorMessage The error message
+	 */
+	private void showErrorMessage(String errorMessage) {
+
+		new Alert(AlertType.ERROR, errorMessage, ButtonType.CLOSE).show();
 	}
 
 	/**
@@ -129,27 +168,50 @@ public class QuizAppController {
 	}
 
 	/**
+	 * Ends the connection
+	 */
+	private void endConnection() {
+		quizManager.endConnection();
+	}
+
+	/**
 	 * The quiz manager
 	 */
 	private QuizManager quizManager = new QuizManager("localhost", 9090, message -> {
 
 		Platform.runLater(() -> {
-			if (message.startsWith("<?xml")) { // The first input from server i.e. the quiz questions
-				Quiz quiz = QuizScriptParser.parse(message);
-				questions = quiz.getQuestions();
-				totalQuestions = questions.size();
-				setQuestion(currentIndex);
-			} else { // The result from server
-				String[] splitted = message.split(",");
-				StringBuilder resultBuilder = new StringBuilder();
-				resultBuilder.append(splitted[0].trim());
-				resultBuilder.append("\n");
-				resultBuilder.append(splitted[1].trim());
-				resultBuilder.append("\n");
-				resultBuilder.append(splitted[2].trim());
-				resultBuilder.append("\n");
-				new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE).show(); // Showing result
-																										// on UI
+			if (message == null) {
+				endConnection();
+			} else {
+				if (message.startsWith("<?xml")) { // The first input from server i.e. the quiz questions
+					Platform.runLater(() -> {
+						while (!quizSceneLoaded) {
+							try {
+								Thread.currentThread().wait(1000l);
+							} catch (InterruptedException exception) {
+								System.out.println("Error occurred while waiting for the quiz scene to load!");
+							}
+						}
+						Quiz quiz = QuizScriptParser.parse(message);
+						questions = quiz.getQuestions();
+						totalQuestions = questions.size();
+						setQuestion(currentIndex);
+					});
+				} else if (message.startsWith("Greetings")) {
+					serverGreet.setText(message.substring(11));
+				} else { // The result from server
+					String[] splitted = message.split(",");
+					StringBuilder resultBuilder = new StringBuilder();
+					resultBuilder.append(splitted[0].trim());
+					resultBuilder.append("\n");
+					resultBuilder.append(splitted[1].trim());
+					resultBuilder.append("\n");
+					resultBuilder.append(splitted[2].trim());
+					resultBuilder.append("\n");
+					new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE).show(); // Showing
+																											// result //
+																											// on UI
+				}
 			}
 		});
 	});
@@ -195,6 +257,58 @@ public class QuizAppController {
 		if (currentIndex == (totalQuestions - 1)) {
 			String resultRequest = prepareResultRequest();
 			quizManager.sendMessage(resultRequest);
+		}
+	}
+
+	/**
+	 * Proceeds to the quiz
+	 * 
+	 * @param event The event
+	 */
+	@FXML
+	void proceed(ActionEvent event) {
+
+		String playerFirstName = firstName.getText();
+		String playerLastName = lastName.getText();
+		Integer playerAge = 0;
+		boolean goodToGo = true;
+
+		try {
+			playerAge = Integer.parseInt(age.getText());
+			if (playerAge < 2 || playerAge > 120) {
+				showErrorMessage("The age should be in range 2-120");
+				goodToGo = false;
+			}
+		} catch (NumberFormatException numberFormatException) {
+			showErrorMessage("Invalid age");
+			goodToGo = false;
+		}
+		// Validating the input
+		if (playerFirstName.equals("") || playerLastName.equals("") || playerAge.equals("")) {
+			showErrorMessage("Fields cannot be empty");
+			goodToGo = false;
+		}
+
+		if (goodToGo) {
+			quizManager.sendMessage( // Sending the player information to the server
+					"{\"firstName\":\"" + firstName.getText() + "\",\"lastName\":\"" + lastName.getText()
+							+ "\",\"age\":\"" + age.getText() + "\"}");
+		}
+
+		try {
+			// Loading the quiz page
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("QuizApp.fxml"));
+			BorderPane root = (BorderPane) loader.load();
+			Scene scene = new Scene(root, 450, 230);
+			Stage stage = new Stage();
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.setTitle("Quiz App");
+			stage.show();
+			quizSceneLoaded = true;
+		} catch (IOException ioException) {
+			showErrorMessage("Error loading the quiz");
 		}
 	}
 }

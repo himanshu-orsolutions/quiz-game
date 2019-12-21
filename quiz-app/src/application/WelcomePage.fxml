@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.QuizAppController">
+	<left>
+		<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+			<children>
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="450.0">
+					<children>
+						<Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="450.0" text="Welcome to the Quiz!">
+							<font>
+								<Font name="System Italic" size="20.0" />
+							</font>
+						</Label>
+					</children>
+				</HBox>
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="450.0">
+					<children>
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="450.0" text="Please proceed with providing your information.">
+							<font>
+								<Font size="15.0" />
+							</font>
+							<padding>
+								<Insets bottom="2.0" left="5.0" right="2.0" top="2.0" />
+							</padding>
+						</Label>
+					</children>
+				</HBox>
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="450.0">
+					<children>
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="99.0" text="First Name:">
+							<padding>
+								<Insets left="5.0" />
+							</padding>
+						</Label>
+						<TextField fx:id="firstName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="346.0" />
+					</children>
+				</HBox>
+				<HBox layoutX="10.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="450.0">
+					<children>
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="99.0" text="Last Name:">
+							<padding>
+								<Insets left="5.0" />
+							</padding>
+						</Label>
+						<TextField fx:id="lastName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="346.0" />
+					</children>
+				</HBox>
+				<HBox layoutX="10.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="450.0">
+					<children>
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="99.0" text="Age:">
+							<padding>
+								<Insets left="5.0" />
+							</padding>
+						</Label>
+						<TextField fx:id="age" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="346.0" />
+					</children>
+				</HBox>
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="450.0">
+					<children>
+						<Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#proceed" prefHeight="26.0" prefWidth="440.0" text="Proceed">
+							<padding>
+								<Insets left="5.0" right="5.0" />
+							</padding>
+							<HBox.margin>
+								<Insets left="5.0" right="5.0" />
+							</HBox.margin>
+						</Button>
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+	</left>
+</BorderPane>
