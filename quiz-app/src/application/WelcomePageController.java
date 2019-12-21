@@ -80,6 +80,9 @@ public class WelcomePageController {
 					+ "\",\"age\": \"" + age.getText() + "\"}";
 
 			try {
+				// Closing the current page
+				((Stage) proceed.getScene().getWindow()).close();
+
 				// Loading the quiz page
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("QuizApp.fxml"));

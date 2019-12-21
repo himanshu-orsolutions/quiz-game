@@ -15,6 +15,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
 public class QuizAppController {
 
@@ -141,13 +142,6 @@ public class QuizAppController {
 	}
 
 	/**
-	 * Sends the message
-	 */
-	private void sendMessage(String message) {
-		quizManager.sendMessage(message);
-	}
-
-	/**
 	 * The quiz manager
 	 */
 	private QuizManager quizManager = new QuizManager("localhost", 9090, message -> {
@@ -219,6 +213,9 @@ public class QuizAppController {
 		questions.get(currentIndex).setAnswer(((RadioButton) optionsGroup.getSelectedToggle()).getText());
 
 		if (currentIndex == (totalQuestions - 1)) {
+			// Closing the current window
+			((Stage) submitButton.getScene().getWindow()).close();
+			
 			String resultRequest = prepareResultRequest();
 			quizManager.sendMessage(resultRequest);
 		}

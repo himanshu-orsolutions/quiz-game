@@ -9,38 +9,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0"
-	prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="application.WelcomePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WelcomePageController">
 	<left>
-		<VBox maxHeight="-Infinity" maxWidth="-Infinity"
-			minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0"
-			prefWidth="450.0" BorderPane.alignment="CENTER">
+		<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="450.0" BorderPane.alignment="CENTER">
 			<children>
-				<HBox maxHeight="-Infinity" maxWidth="-Infinity"
-					minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0"
-					prefWidth="450.0">
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="450.0">
 					<children>
-						<Label fx:id="serverGreet" alignment="CENTER"
-							contentDisplay="CENTER" maxHeight="-Infinity"
-							maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-							prefHeight="40.0" prefWidth="450.0" text="Welcome to the Quiz!">
+						<Label fx:id="serverGreet" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="450.0" text="Welcome to the Quiz!">
 							<font>
 								<Font name="System Italic" size="20.0" />
 							</font>
 						</Label>
 					</children>
 				</HBox>
-				<HBox maxHeight="-Infinity" maxWidth="-Infinity"
-					minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0"
-					prefWidth="450.0">
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="450.0">
 					<children>
-						<Label maxHeight="-Infinity" maxWidth="-Infinity"
-							minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0"
-							prefWidth="450.0"
-							text="Please proceed with providing your information.">
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="450.0" text="Please proceed with providing your information.">
 							<font>
 								<Font size="15.0" />
 							</font>
@@ -50,62 +34,39 @@
 						</Label>
 					</children>
 				</HBox>
-				<HBox maxHeight="-Infinity" maxWidth="-Infinity"
-					minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0"
-					prefWidth="450.0">
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="450.0">
 					<children>
-						<Label maxHeight="-Infinity" maxWidth="-Infinity"
-							minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0"
-							prefWidth="99.0" text="First Name:">
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="99.0" text="First Name:">
 							<padding>
 								<Insets left="5.0" />
 							</padding>
 						</Label>
-						<TextField fx:id="firstName" maxHeight="-Infinity"
-							maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-							prefHeight="26.0" prefWidth="346.0" />
+						<TextField fx:id="firstName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="346.0" />
 					</children>
 				</HBox>
-				<HBox layoutX="10.0" layoutY="113.0" maxHeight="-Infinity"
-					maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-					prefHeight="28.0" prefWidth="450.0">
+				<HBox layoutX="10.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="450.0">
 					<children>
-						<Label maxHeight="-Infinity" maxWidth="-Infinity"
-							minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0"
-							prefWidth="99.0" text="Last Name:">
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="99.0" text="Last Name:">
 							<padding>
 								<Insets left="5.0" />
 							</padding>
 						</Label>
-						<TextField fx:id="lastName" maxHeight="-Infinity"
-							maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-							prefHeight="26.0" prefWidth="346.0" />
+						<TextField fx:id="lastName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="346.0" />
 					</children>
 				</HBox>
-				<HBox layoutX="10.0" layoutY="141.0" maxHeight="-Infinity"
-					maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-					prefHeight="41.0" prefWidth="450.0">
+				<HBox layoutX="10.0" layoutY="141.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="450.0">
 					<children>
-						<Label maxHeight="-Infinity" maxWidth="-Infinity"
-							minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0"
-							prefWidth="99.0" text="Age:">
+						<Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="99.0" text="Age:">
 							<padding>
 								<Insets left="5.0" />
 							</padding>
 						</Label>
-						<TextField fx:id="age" maxHeight="-Infinity"
-							maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-							prefHeight="26.0" prefWidth="346.0" />
+						<TextField fx:id="age" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="346.0" />
 					</children>
 				</HBox>
-				<HBox maxHeight="-Infinity" maxWidth="-Infinity"
-					minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0"
-					prefWidth="450.0">
+				<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="450.0">
 					<children>
-						<Button maxHeight="-Infinity" maxWidth="-Infinity"
-							minHeight="-Infinity" minWidth="-Infinity"
-							mnemonicParsing="false" onAction="#proceed" prefHeight="26.0"
-							prefWidth="440.0" text="Proceed">
+						<Button fx:id="proceed" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#proceed" prefHeight="26.0" prefWidth="440.0" text="Proceed">
 							<padding>
 								<Insets left="5.0" right="5.0" />
 							</padding>
