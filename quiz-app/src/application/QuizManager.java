@@ -45,7 +45,7 @@ public class QuizManager {
 			connection.messageWriter.write(message + "\n");
 			connection.messageWriter.flush();
 		} catch (IOException ioException) {
-			System.out.println("Error sending the message to friend!!");
+			System.out.println("Error sending the message to server!!");
 		}
 	}
 
@@ -110,6 +110,9 @@ public class QuizManager {
 
 				this.socket = socket;
 				this.messageWriter = messageWriter;
+
+				// Sending the player information
+				sendMessage(WelcomePageController.playerInfo);
 
 				while (true) {
 					messageConsumer.accept(messageReader.readLine());

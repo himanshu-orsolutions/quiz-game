@@ -157,14 +157,9 @@ public class Server {
 		// Sending the question paper
 		taskExecutor.execute(() -> {
 			try {
-				// Greeting the player
-				outputWriter.write("Greetings: Welcome to the quiz!");
-				outputWriter.flush();
-
-				// Getting and parsing the player's information
-				String information = inputReader.readLine();
-				System.out.println(information);
-				Player player = new Gson().fromJson(information, Player.class);
+				// Getting the player information
+				String playerInfo = inputReader.readLine();
+				Player player = new Gson().fromJson(playerInfo, Player.class);
 
 				// Sending the quiz content to the player
 				outputWriter.write(quizContent + "\n");
@@ -172,8 +167,7 @@ public class Server {
 
 				// Getting the result request
 				String resultRequest = inputReader.readLine();
-				System.out.println(resultRequest);
-				
+
 				// Calculating the result
 				String result = calculateResult(resultRequest);
 				player.setResult(result);
@@ -182,7 +176,7 @@ public class Server {
 				outputWriter.write(result + "\n");
 				outputWriter.flush();
 
-				// Saving the result into the file
+				// Saving the player information
 				saveToFile(player);
 			} catch (IOException ioException) {
 				System.out.println("Error: Quiz interrupted. Exception: " + ioException.getLocalizedMessage());
