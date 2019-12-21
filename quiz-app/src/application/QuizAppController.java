@@ -166,7 +166,14 @@ public class QuizAppController {
 					resultBuilder.append("\n");
 					resultBuilder.append(splitted[2].trim());
 					resultBuilder.append("\n");
-					new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE).show(); // on UI
+
+					// Showing the result
+					Alert alert = new Alert(AlertType.INFORMATION, resultBuilder.toString(), ButtonType.CLOSE);
+					alert.setOnCloseRequest(value -> {
+						System.exit(0);
+					});
+
+					alert.show();
 				}
 			} catch (Exception exception) {
 				endConnection();
@@ -215,7 +222,7 @@ public class QuizAppController {
 		if (currentIndex == (totalQuestions - 1)) {
 			// Closing the current window
 			((Stage) submitButton.getScene().getWindow()).close();
-			
+
 			String resultRequest = prepareResultRequest();
 			quizManager.sendMessage(resultRequest);
 		}

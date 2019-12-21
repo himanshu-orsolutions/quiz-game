@@ -145,7 +145,9 @@ public class Server {
 			writer.append("Age: " + player.getAge());
 			writer.append("\n");
 			writer.append("Result: " + player.getResult());
-			writer.append("\n\n");
+			writer.append("\n");
+			writer.append("================================================================================");
+			writer.append("\n");
 		}
 	}
 
