@@ -54,6 +54,7 @@ public class QuizScriptParser {
 			File xml = path.toFile();
 			return (Quiz) unmarshaller.unmarshal(xml);
 		} catch (JAXBException jaxbException) {
+			jaxbException.printStackTrace();
 			System.out.println(
 					"Error: Deserialization of XML content failed. Exception: " + jaxbException.getLocalizedMessage());
 		}

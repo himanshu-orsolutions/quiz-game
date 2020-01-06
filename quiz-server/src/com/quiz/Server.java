@@ -2,17 +2,19 @@ package com.quiz;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.swing.JFileChooser;
 
 import com.google.gson.Gson;
 import com.quiz.models.Player;
@@ -221,15 +223,21 @@ public class Server {
 	public Server() {
 		try {
 			serverSocket = new ServerSocket(9090);
-			Quiz quiz = QuizScriptParser.parse(Paths.get("quiz.xml"));
+			JFileChooser fileChooser = new JFileChooser();
+			int i = fileChooser.showOpenDialog(null);
+			if (i == JFileChooser.APPROVE_OPTION) {
+				File scriptFile = fileChooser.getSelectedFile();
+				Quiz quiz = QuizScriptParser.parse(scriptFile.toPath());
 
-			if (quiz != null) { // Starts accepting the connections
-				prepareQuizMetadata(quiz);
-				quizContent = QuizScriptParser.toXMLString(quiz);
-				acceptConnections();
-			} else {
-				System.out.println("Error: Quiz content parsing failed. Cannot proceed further!!");
+				if (quiz != null) { // Starts accepting the connections
+					prepareQuizMetadata(quiz);
+					quizContent = QuizScriptParser.toXMLString(quiz);
+					acceptConnections();
+				} else {
+					System.out.println("Error: Quiz content parsing failed. Cannot proceed further!!");
+				}
 			}
+
 		} catch (IOException ioException) {
 			System.out.println("Error: Server cannot be started. Exception: " + ioException.getLocalizedMessage());
 		}
